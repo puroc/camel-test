@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+
+	<bean id="UpHandler" class="com.example.camel.mina2.handler.UpHandler" />
+
+	<bean id="TrafficCodec" class="com.example.camel.mina2.codec.TrafficCodec" />
+
+	<bean id="TcpListener" class="com.example.camel.mina2.TcpListener" />
+
+	<camelContext xmlns="http://camel.apache.org/schema/spring"
+		id="camelContext">
+		<route id="minaRoute">
+		    <!-- orderedThreadPoolExecutor默认为true，性能非常差 -->
+			<from
+				uri="mina2:tcp://localhost:18567?sync=false&amp;codec=#TrafficCodec&amp;filters=#TcpListener&amp;orderedThreadPoolExecutor=false" />
+			<bean ref="UpHandler" method="handle" />
+		</route>
+	</camelContext>
+
+</beans>
