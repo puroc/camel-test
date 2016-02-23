@@ -58,7 +58,7 @@
 		</layout>
 	</appender>
 
-	<root level="ERROR">
+	<root level="INFO">
 		<appender-ref ref="CONSOLE" />
 		<appender-ref ref="INFO_FILE" />
 		<appender-ref ref="ERROR_FILE" />
