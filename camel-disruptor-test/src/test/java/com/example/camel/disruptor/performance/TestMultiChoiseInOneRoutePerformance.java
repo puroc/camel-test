@@ -41,42 +41,45 @@ public class TestMultiChoiseInOneRoutePerformance {
 								throws Exception {
 							exchange.getIn().setHeader("terminalId", "12345");
 						}
-					})
-					.choice()
-//					.when()
-//					.mvel("request.headers.terminalId=='12345'")
-//					.process(new Processor() {
-//
-//						@Override
-//						public void process(Exchange exchange)
-//								throws Exception {
-//							// System.out.println("correct");
-//							counter.add();
-//						}
-//					})
+					}).choice()
+					// .when()
+					// .mvel("request.headers.terminalId=='12345'")
+					// .process(new Processor() {
+					//
+					// @Override
+					// public void process(Exchange exchange)
+					// throws Exception {
+					// // System.out.println("correct");
+					// counter.add();
+					// }
+					// })
 					.otherwise().log("otherwise error");
 
 			appendWhen(definition);
 
+			if (definition.getId() == null) {
+				definition.setId(name);
+			}
 		}
 
 		private ChoiceDefinition appendWhen(ChoiceDefinition definition) {
-			for (int i = 0; i < 2000; i++) {
+			for (int i = 0; i < 200; i++) {
 				definition.when()
 						.mvel("request.headers.terminalId=='" + i + "'")
 						.log("failed.");
 			}
-			definition.when()
-			.mvel("request.headers.terminalId=='12345'")
-			.process(new Processor() {
+			definition.when().mvel("request.headers.terminalId=='12345'")
+					.process(new Processor() {
 
-				@Override
-				public void process(Exchange exchange)
-						throws Exception {
-					// System.out.println("correct");
-					counter.add();
-				}
-			});
+						@Override
+						public void process(Exchange exchange)
+								throws Exception {
+							// System.out.println("correct");
+							if (definition.getId().equals("choice1")) {
+								counter.add();
+							}
+						}
+					});
 			return definition;
 		}
 	}
@@ -118,7 +121,7 @@ public class TestMultiChoiseInOneRoutePerformance {
 						e.printStackTrace();
 					}
 				}
-			}, 3000);
+			}, 1000);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
