@@ -12,8 +12,8 @@ import java.util.TimerTask;
 import javax.annotation.PostConstruct;
 
 import org.apache.camel.CamelContext;
-import org.apache.camel.CamelExecutionException;
 import org.apache.camel.ProducerTemplate;
+import org.apache.camel.spi.UriEndpoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -39,7 +39,7 @@ public class Producer {
 					try {
 						for (int i = 0; true; i++) {
 							template.sendBody("direct:start", "Hello World");
-							// Thread.sleep(1);
+							// Thread.sleep(1000);
 						}
 					} catch (Throwable e) {
 						e.printStackTrace();
