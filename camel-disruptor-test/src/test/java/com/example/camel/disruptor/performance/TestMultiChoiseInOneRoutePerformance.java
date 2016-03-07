@@ -93,20 +93,19 @@ public class TestMultiChoiseInOneRoutePerformance {
 			}
 			ProducerTemplate template = cc.createProducerTemplate();
 			cc.start();
-			// for (final int i = 0; i < 10; i++) {
-			// while (true) {
+			// for (int i = 0; i < 50; i++) {
 			// new Thread(new Runnable() {
 			// public void run() {
-			// cc.createProducerTemplate().sendBody(DISRUPTOR_NEXT,
-			// i + "");
-			// try {
-			// Thread.sleep(1);
-			// } catch (InterruptedException e) {
-			// e.printStackTrace();
+			// while (true) {
+			// template.sendBody(DISRUPTOR_NEXT, 1 + "");
+			// // try {
+			// // Thread.sleep(1);
+			// // } catch (InterruptedException e) {
+			// // e.printStackTrace();
+			// // }
 			// }
 			// }
 			// }).start();
-			// }
 			// }
 			new Timer().schedule(new TimerTask() {
 
