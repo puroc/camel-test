@@ -25,7 +25,7 @@ public class Subscriber {
 
 				@Override
 				public void configure() throws Exception {
-					from("mqtt:bar?subscribeTopicName=test.mqtt.topic")
+					from("mqtt:bar?subscribeTopicName=mqtt.topic")
 							.process(new Processor() {
 
 						public void process(Exchange exchange)
